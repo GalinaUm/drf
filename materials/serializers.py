@@ -8,6 +8,7 @@ class LessonSerializer(serializers.ModelSerializer):
         model = Lesson
         fields = "__all__"
 
+
 class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
