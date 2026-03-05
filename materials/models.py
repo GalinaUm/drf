@@ -64,7 +64,7 @@ class Lesson(models.Model):
         blank=True,
         null=True,
         verbose_name="Ссылка на видео",
-        help_text="Укажите ссылку на видео (например, Youtube)",
+        help_text="Укажите ссылку на видео",
     )
 
     class Meta:

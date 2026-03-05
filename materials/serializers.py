@@ -6,4 +6,4 @@ from materials.models import Lesson
 class LessonSerializer(ModelSerializer):
     class Meta:
         model = Lesson
-        fields = '__all__'
+        fields = "__all__"
