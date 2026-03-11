@@ -1,4 +1,7 @@
 from django.db import models
+from django.db.models import SET_NULL
+
+from users.models import User
 
 
 class Course(models.Model):
@@ -21,6 +24,15 @@ class Course(models.Model):
         null=True,
         verbose_name="Описание",
         help_text="Укажите описание",
+    )
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Владелец",
+        help_text="Укажите владельца",
     )
 
     class Meta:
@@ -65,6 +77,15 @@ class Lesson(models.Model):
         null=True,
         verbose_name="Ссылка на видео",
         help_text="Укажите ссылку на видео",
+    )
+
+    owner = models.ForeignKey(
+        User,
+        on_delete=SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Владелец",
+        help_text="Укажите владельца",
     )
 
     class Meta:
