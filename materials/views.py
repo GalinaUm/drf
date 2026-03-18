@@ -1,8 +1,11 @@
+from pyexpat.errors import messages
 from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.generics import get_object_or_404
 
-
-from materials.models import Course, Lesson
+from materials.models import Course, Lesson, Subscription
 from materials.serializers import (
     CourseDetailSerializer,
     CourseSerializer,
@@ -66,3 +69,22 @@ class LessonDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner | ~IsModer]
 
 
+class SubscriptionAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        course_id = request.data.get("course")
+        course_item = get_object_or_404(Course, id=course_id)
+
+        sub_item = Subscription.objects.filter(user=user, course=course_item)
+
+        if sub_item.exists():
+            sub_item.delete()
+            message = "Подписка удалена"
+
+        else:
+            Subscription.objects.create(user=user, course=course_item)
+            message = "Подписка добавлена"
+
+        return Response({"message": message})
