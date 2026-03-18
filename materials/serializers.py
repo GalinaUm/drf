@@ -6,7 +6,7 @@ from materials.validators import validate_youtube
 
 
 class LessonSerializer(serializers.ModelSerializer):
-    video_url  = serializers.CharField(validators=[validate_youtube], required=False)
+    video_url = serializers.CharField(validators=[validate_youtube], required=False)
 
     class Meta:
         model = Lesson
@@ -14,7 +14,7 @@ class LessonSerializer(serializers.ModelSerializer):
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    is_subscribed =  serializers.SerializerMethodField()
+    is_subscribed = serializers.SerializerMethodField()
 
     class Meta:
         model = Course

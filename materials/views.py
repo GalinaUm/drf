@@ -1,22 +1,18 @@
-from pyexpat.errors import messages
 from rest_framework import generics, viewsets
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from materials.models import Course, Lesson, Subscription
 from materials.paginations import CustomPagination
-from materials.serializers import (
-    CourseDetailSerializer,
-    CourseSerializer,
-    LessonSerializer,
-)
+from materials.serializers import (CourseDetailSerializer, CourseSerializer,
+                                   LessonSerializer)
 from users.permissions import IsModer, IsOwner
 
 
 class CourseViewSet(viewsets.ModelViewSet):
-    queryset = Course.objects.all().order_by('id')
+    queryset = Course.objects.all().order_by("id")
     serializer_class = CourseSerializer
     pagination_class = CustomPagination
 
@@ -50,7 +46,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
 
 
 class LessonListAPIView(generics.ListAPIView):
-    queryset = Lesson.objects.all().order_by('id')
+    queryset = Lesson.objects.all().order_by("id")
     serializer_class = LessonSerializer
     pagination_class = CustomPagination
 
