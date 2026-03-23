@@ -1,15 +1,14 @@
 from pprint import pprint
 
-import requests
+# import requests
 import stripe
-from stripe.issuing import Authorization
-
-from config.settings import STRIPE_API_KEY, EXCHANGE_API_KEY
 from forex_python.converter import CurrencyRates
+# from stripe.issuing import Authorization
 
-
+from config.settings import EXCHANGE_API_KEY, STRIPE_API_KEY
 
 stripe.api_key = STRIPE_API_KEY
+
 
 def convert_rub_to_dollars(amount):
     """Конвертирует рубли в доллары"""
@@ -38,6 +37,7 @@ def create_stripe_price(amount):
         product_data={"name": "Payment"},
     )
 
+
 def create_stripe_session(price):
     """Создает сессию на оплату в страйпе"""
 
@@ -48,5 +48,6 @@ def create_stripe_session(price):
     )
     return session.get("id"), session.get("url")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     pprint(convert_rub_to_dollars(100))

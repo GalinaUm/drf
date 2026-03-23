@@ -85,7 +85,7 @@ class Payment(models.Model):
         blank=True,
         null=True,
         verbose_name="Id сессии",
-        help_text="Укажите ссылку на оплату"
+        help_text="Укажите ссылку на оплату",
     )
 
     link = models.URLField(
