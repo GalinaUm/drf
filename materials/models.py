@@ -43,6 +43,8 @@ class Course(models.Model):
         related_name="subscription_update"
     )
 
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Последнее обновление")
+
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"

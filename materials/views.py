@@ -14,6 +14,9 @@ from materials.serializers import (
     CourseSerializer,
     LessonSerializer,
 )
+from datetime import timedelta
+from django.utils import timezone
+from .tasks import send_course_update_info
 from users.permissions import IsModer, IsOwner
 
 
@@ -47,17 +50,27 @@ class CourseViewSet(viewsets.ModelViewSet):
             self.permission_classes = [~IsModer | IsOwner]
         return super().get_permissions()
 
+    def perform_update(self, serializer):
+        course = self.get_object()
+        old_updated_at = course.updated_at
+
+        updated_course = serializer.save()
+
+        if timezone.now() - old_updated_at > timedelta(hours=4):
+            send_course_update_info.delay(updated_course.id)
+
     @action(detail=True, methods=["post"])
     def subscriptions(self, request, pk):
+        """Метод только включает/выключает подписку, письма здесь слать не нужно"""
         course = get_object_or_404(Course, id=pk)
         if course.subscription_update.filter(pk=request.user.pk).exists():
             course.subscription_update.remove(request.user)
+            message = "Подписка удалена"
         else:
             course.subscription_update.add(request.user)
-        serializer = self.get_serializer(course)
-        return Response(data=serializer.data)
+            message = "Подписка добавлена"
 
-
+        return Response({"message": message})
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
