@@ -35,9 +35,18 @@ class Course(models.Model):
         help_text="Укажите владельца",
     )
 
+    subscription_update = models.ManyToManyField(
+        User,
+        blank=True,
+        verbose_name="Обновление подписки",
+        help_text="Укажите обновление подписки",
+        related_name="subscription_update"
+    )
+
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
+
 
 
 class Lesson(models.Model):

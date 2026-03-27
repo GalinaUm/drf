@@ -1,6 +1,7 @@
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, viewsets
+from rest_framework.decorators import action
 from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -45,6 +46,18 @@ class CourseViewSet(viewsets.ModelViewSet):
         elif self.action == "destroy":
             self.permission_classes = [~IsModer | IsOwner]
         return super().get_permissions()
+
+    @action(detail=True, methods=["post"])
+    def subscriptions(self, request, pk):
+        course = get_object_or_404(Course, id=pk)
+        if course.subscription_update.filter(pk=request.user.pk).exists():
+            course.subscription_update.remove(request.user)
+        else:
+            course.subscription_update.add(request.user)
+        serializer = self.get_serializer(course)
+        return Response(data=serializer.data)
+
+
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
