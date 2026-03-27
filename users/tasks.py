@@ -1,8 +1,9 @@
-from celery import shared_task
-from django.utils import timezone
-from datetime import timedelta
-from django.contrib.auth import get_user_model
 import logging
+from datetime import timedelta
+
+from celery import shared_task
+from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 
@@ -16,9 +17,7 @@ def block_inactive_users():
     month_ago = timezone.now() - timedelta(days=30)
 
     inactive_users = User.objects.filter(
-        last_login__lt=month_ago,
-        is_active=True,
-        last_login__isnull=False
+        last_login__lt=month_ago, is_active=True, last_login__isnull=False
     )
 
     count = inactive_users.count()

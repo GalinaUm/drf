@@ -40,15 +40,16 @@ class Course(models.Model):
         blank=True,
         verbose_name="Обновление подписки",
         help_text="Укажите обновление подписки",
-        related_name="subscription_update"
+        related_name="subscription_update",
     )
 
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Последнее обновление")
+    updated_at = models.DateTimeField(
+        auto_now=True, verbose_name="Последнее обновление"
+    )
 
     class Meta:
         verbose_name = "Курс"
         verbose_name_plural = "Курсы"
-
 
 
 class Lesson(models.Model):

@@ -1,3 +1,6 @@
+from datetime import timedelta
+
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import generics, viewsets
@@ -14,10 +17,9 @@ from materials.serializers import (
     CourseSerializer,
     LessonSerializer,
 )
-from datetime import timedelta
-from django.utils import timezone
-from .tasks import send_course_update_info
 from users.permissions import IsModer, IsOwner
+
+from .tasks import send_course_update_info
 
 
 @method_decorator(

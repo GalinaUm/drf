@@ -122,9 +122,9 @@ SIMPLE_JWT = {
 STRIPE_API_KEY = os.getenv("STRIPE_API_KEY")
 EXCHANGE_API_KEY = os.getenv("EXCHANGE_API_KEY")
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = "redis://localhost:6379/0"
 
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
 
 CELERY_TIMEZONE = TIME_ZONE
 
@@ -133,13 +133,13 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
-    'block_inactive_users_daily': {
-        'task': 'users.tasks.block_inactive_users', # Путь к вашей задаче
-        'schedule': crontab(hour=0, minute=0),      # Каждый день в полночь по UTC
+    "block_inactive_users_daily": {
+        "task": "users.tasks.block_inactive_users",  # Путь к вашей задаче
+        "schedule": crontab(hour=0, minute=0),  # Каждый день в полночь по UTC
     },
 }
 
-EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_PORT = 465
 EMAIL_HOST_USER = "your@yandex.ru"
 EMAIL_HOST_PASSWORD = "password"
