@@ -3,9 +3,11 @@ from pprint import pprint
 # import requests
 import stripe
 from forex_python.converter import CurrencyRates
-# from stripe.issuing import Authorization
 
 from config.settings import EXCHANGE_API_KEY, STRIPE_API_KEY
+
+# from stripe.issuing import Authorization
+
 
 stripe.api_key = STRIPE_API_KEY
 
