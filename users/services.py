@@ -4,7 +4,7 @@ from pprint import pprint
 import stripe
 from forex_python.converter import CurrencyRates
 
-from config.settings import EXCHANGE_API_KEY, STRIPE_API_KEY
+from config.settings import STRIPE_API_KEY
 
 # from stripe.issuing import Authorization
 
