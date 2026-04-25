@@ -107,7 +107,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/drf-homework:${{ github.sha }} .
+          docker build -t ${{ secrets.galinaumerzakova }}/drf-homework:${{ github.sha }} .
           docker tag ${{ secrets.DOCKER_HUB_USERNAME }}/drf-homework:${{ github.sha }} ${{ secrets.DOCKER_HUB_USERNAME }}/drf-homework:latest
 
       - name: Push Docker image
