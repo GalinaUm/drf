@@ -15,6 +15,12 @@ RUN apt-get update && apt-get install -y \
 RUN pip install --no-cache-dir poetry
 
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-interaction --no-ansi
+RUN poetry install --no-interaction --no-ansi --no-root
 
 COPY . .
+
+RUN mkdir -p /app/media /app/staticfiles
+
+EXPOSE 8000
+
+CMD ["poetry", "run", "gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
